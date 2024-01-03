@@ -1,2 +1,5 @@
 libnss3
 chromium-browser
+libglib2.0
+libgconf-2-4
+libfontconfig1
