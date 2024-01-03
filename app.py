@@ -126,11 +126,12 @@ def main(PATH,Res,form,data,N):
     NAMES.append(NAMES[-1])
     service = Service(executable_path=os.path.join(os.path.dirname(
         __file__), 'chromedriver'))
-    chrome_options = Options()
-    chrome_options.binary_location = r"/opt/render/project/.render/chrome/opt/google/chrome"
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    options = Options()
+    options.binary_location = r"/opt/render/project/.render/chrome/opt/google/chrome"
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--headless=new')
+    driver = webdriver.Chrome(service=service, chrome_options=options)
     i = 0
     t=N
     t2=i
