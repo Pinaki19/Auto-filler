@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function updateSliderValue() {
     const sliderValue = document.getElementById("numResponsesSlider").value;
-    document.getElementById("numResponsesInput").value = sliderValue;
+    document.getElementById("numResponses").value = sliderValue;
 }
 
 // Function to update slider value when input changes
