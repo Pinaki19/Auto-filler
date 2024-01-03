@@ -131,7 +131,7 @@ def main(PATH,Res,form,data,N):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--headless=new')
-    driver = webdriver.Chrome(service=service, chrome_options=options)
+    driver = webdriver.Chrome(service=service,options=options)
     i = 0
     t=N
     t2=i
