@@ -233,8 +233,6 @@ def contact():
 def about():
     return render_template('about.html')
 
-
-
 @app.route('/fill', methods=['POST'])
 def fill():
     Data = request.get_json()
@@ -243,7 +241,7 @@ def fill():
     data=Data.get("Form_data")
     N=Data.get("Total")
     print(Res,form,data)
-    main(r"Driver\chromedriver.exe",Res,form,data,N)
+    main("chromedriver.exe",Res,form,data,N)
     return jsonify({'status':"ok"})
   
 if __name__ == "__main__":
