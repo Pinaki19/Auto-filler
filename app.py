@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import pymongo
 import os
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -124,8 +125,10 @@ def main(PATH,Res,form,data,N):
         EMAILS = [i.strip() for i in EMAILS.split(',')]
     NAMES.append(NAMES[-1])
     service = Service(executable_path=os.path.join(os.path.dirname(
-        __file__), 'chromedriver'), service_log_path='.')
-    driver = webdriver.Chrome(service=service)
+        __file__), 'chromedriver'))
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     i = 0
     t=N
     t2=i
