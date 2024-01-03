@@ -3,7 +3,7 @@ gunicorn
 flask-pymongo==2.2.0
 requests==2.29.0
 pymongo==4.5.0
-selenium
+selenium==4.16.0
 pytz
 pandas
 flask-cors

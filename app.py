@@ -124,10 +124,7 @@ def main(PATH,Res,form,data,N):
         EMAILS = [i.strip() for i in EMAILS.split(',')]
     print(NAMES)
     NAMES.append(NAMES[-1])
-    service = Service(executable_path=PATH)
-    options = webdriver.ChromeOptions()
-    options.add_argument("window-size=200x200")
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome()
     i = 0
     t=N
     t2=i
