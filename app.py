@@ -11,7 +11,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert
-from webdriver_manager.chrome import ChromeDriverManager
 import time
 from random import randint,choice
 import pandas as pd
@@ -129,8 +128,7 @@ def main(PATH,Res,form,data,N):
         __file__), 'chromedriver'))
     chrome_options = Options()
     chrome_options.add_argument('--headless')
-    driver = webdriver.Chrome(
-        ChromeDriverManager().install(), options=chrome_options)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     i = 0
     t=N
     t2=i
