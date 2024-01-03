@@ -17,7 +17,7 @@ import pandas as pd
 csv_file_path = 'Names.csv'
 
 app = Flask(__name__)
-
+CORS(app)
 ext_js='''main();
 
 function main() {
