@@ -122,9 +122,8 @@ def main(PATH,Res,form,data,N):
         EMAILS = []
     else:
         EMAILS = [i.strip() for i in EMAILS.split(',')]
-    print(NAMES)
     NAMES.append(NAMES[-1])
-    service = Service(executable_path=os.path.join(os.path.dirname(__file__), 'chromedriver.exe'))
+    service = Service(executable_path=os.path.join(os.path.dirname(__file__), 'chromedriver'))
     driver = webdriver.Chrome(service=service)
     i = 0
     t=N
