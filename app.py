@@ -127,7 +127,7 @@ def main(PATH,Res,form,data,N):
     service = Service(executable_path=os.path.join(os.path.dirname(
         __file__), 'chromedriver'))
     options = Options()
-    options.binary_location = r"/opt/render/project/.render/chrome/opt/google/chrome"
+    options.binary_location = r"/opt/render/project/.render/chrome/opt/google/"
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--headless=new')
