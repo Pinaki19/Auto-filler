@@ -127,6 +127,7 @@ def main(PATH,Res,form,data,N):
     service = Service(executable_path=os.path.join(os.path.dirname(
         __file__), 'chromedriver'))
     chrome_options = Options()
+    chrome_options.binary_location = r"./google-chrome-stable_current_amd64.deb"
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(service=service, options=chrome_options)
