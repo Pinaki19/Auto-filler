@@ -15,7 +15,8 @@ function updateSliderValue() {
 
 // Function to update slider value when input changes
 function updateInputValue() {
-    const inputValue = document.getElementById("numResponsesInput").value;
+    checkInput();
+    const inputValue = document.getElementById("numResponses").value;
     document.getElementById("numResponsesSlider").value = inputValue;
 }
 function fetchForm() {
