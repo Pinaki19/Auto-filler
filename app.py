@@ -99,7 +99,7 @@ def get_random_names(n):
     return random_names
 
 
-def main(PATH,Res,form,data,N):
+def main(Res,form,data,N):
     if not validForm(form):
         return 'NO'
     try:
@@ -143,7 +143,7 @@ def main(PATH,Res,form,data,N):
         try:
             print(f"Submitting form no: {i+1}")
             driver.get(form)
-            driver.implicitly_wait(1)
+            driver.implicitly_wait(.5)
             flag1,flag2=0,0
             try:
                 l = driver.find_elements(By.XPATH, '*//input[@type="text"]')
@@ -204,7 +204,7 @@ def main(PATH,Res,form,data,N):
                         pass
                     
             driver.execute_script(ext_js)
-            time.sleep(.25)
+            time.sleep(.1)
             #// Before you try to switch to the so given alert, it needs to be present.
             try:
                 time.sleep(.50)
@@ -217,7 +217,7 @@ def main(PATH,Res,form,data,N):
                 time.sleep(2)
                 driver.quit()
         except:
-            time.sleep(.4)
+            time.sleep(.2)
             N=t
             i=t2
    
@@ -247,8 +247,7 @@ def fill():
     form=Data.get("Form")
     data=Data.get("Form_data")
     N=Data.get("Total")
-    print(Res,form,data)
-    main("chromedriver.exe",Res,form,data,N)
+    main(Res,form,data,N)
     return jsonify({'status':"ok"})
   
 if __name__ == "__main__":
