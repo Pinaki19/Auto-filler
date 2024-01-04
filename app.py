@@ -1,8 +1,5 @@
 from flask import Flask, jsonify, request, render_template, json, redirect, url_for, session, abort, send_file, send_from_directory
 from flask_pymongo import PyMongo
-from pytz import timezone
-from flask_cors import CORS
-from datetime import datetime, timedelta
 import pymongo
 import os
 from selenium import webdriver
@@ -18,55 +15,38 @@ import pandas as pd
 csv_file_path = 'Names.csv'
 
 app = Flask(__name__)
-CORS(app)
-ext_js='''main();
+
+ext_js = '''main();
 
 function main() {
-    const form = document.body;
-    //console.log(form);
-    
-    let child = form.children;
-    //console.log(child);
-    var i;
-    for (i = 0; i < child.length; i++) {
-        if (child[i].tagName == "DIV") {
-            break;
-        }
-    }
-    var p = child[i].children[1].children[0].children[1].children[0].children[1].children;
-    
+    var p =document.querySelector('[role="list"]').children;
     var k, x;
     for (k = 0; k < p.length; k++) {
         x = p[k].children[0];
         
         try {
             x = x.children[0].children[1];
-            
             if (x.children[1].getAttribute("role") == "list") {
                 x = x.children[1];
                 var l = x.childElementCount;
+                console.log(x);
     
                 if(l==1){
                     x.children[0].childre[0].children[0].click();
                 }
                 else if (true) {
                     var select = Math.floor(Math.random() * (l - 1))
-                    //console.log(select);
                     x.children[select].children[0].children[0].click();
                     select = Math.floor(Math.random() * (l - 1));
-                    //console.log(select);
                     x.children[select].children[0].children[0].click();
                     select = Math.floor(Math.random() * (l - 1));
-                    //console.log(select);
                     x.children[select].childre[0].children[0].click();
-                }
-                
-
+                } 
             }
             else {
                 x = x.children[1].children[0];
                 x = x.children[0].children[0].children;
-                var select = Math.floor(Math.random() * x.length)
+                var select = Math.floor(Math.random() * (x.length-1))
                 x[select].children[0].click();
             }
 
@@ -95,9 +75,38 @@ def get_random_names(n):
     return random_names
 
 
+def getQuestionClassName(form):
+    if not validForm(form):
+        return None
+
+    service = Service(executable_path=os.path.join(
+        os.path.dirname(__file__), 'chromedriver.exe'))
+    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--headless=new')
+
+    driver = webdriver.Chrome(service=service, options=options)
+    driver.get(form)
+    driver.implicitly_wait(1)
+    try:
+        # Specific XPath to target the first div with role='list'
+        xpath = "//div[@role='list'][1]"
+        element = driver.find_element(By.XPATH, xpath)
+        class_name = element.get_attribute("class")
+        print(class_name)
+        return class_name
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+    finally:
+        driver.quit()
+
+
+
 def main(Res,form,data,N):
     if not validForm(form):
-        return 'NO'
+        return None
     try:
         N=int(N)
     except:
@@ -120,14 +129,14 @@ def main(Res,form,data,N):
     else:
         EMAILS = [i.strip() for i in EMAILS.split(',')]
     NAMES.append(NAMES[-1])
-    service = Service(executable_path=os.path.join(os.path.dirname(
-        __file__), 'chromedriver'))
+    service = Service(executable_path=os.path.join(
+        os.path.dirname(__file__), 'chromedriver'))
     options = Options()
-    options.binary_location = r"/opt/render/project/.render/chrome/opt/google/chrome/chrome"
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--headless=new')
-    driver = webdriver.Chrome(service=service,options=options)
+
+    driver = webdriver.Chrome(service=service, options=options)
     i = 0
     t=N
     t2=i
@@ -139,7 +148,6 @@ def main(Res,form,data,N):
         try:
             print(f"Submitting form no: {i+1}")
             driver.get(form)
-            driver.implicitly_wait(.1)
             flag1,flag2=0,0
             try:
                 l = driver.find_elements(By.XPATH, '*//input[@type="text"]')
@@ -244,7 +252,7 @@ def fill():
     data=Data.get("Form_data")
     N=Data.get("Total")
     main(Res,form,data,N)
-    return jsonify({'status':"ok"})
+    return jsonify({'status':'ok'})
   
 if __name__ == "__main__":
     app.run(port=8080)
