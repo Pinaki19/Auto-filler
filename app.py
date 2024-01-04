@@ -33,9 +33,6 @@ function main() {
             break;
         }
     }
-
-    var not_ques = new Set();
-    var filled = new Set();
     var p = child[i].children[1].children[0].children[1].children[0].children[1].children;
     
     var k, x;
@@ -46,7 +43,6 @@ function main() {
             x = x.children[0].children[1];
             
             if (x.children[1].getAttribute("role") == "list") {
-                filled.add(k);
                 x = x.children[1];
                 var l = x.childElementCount;
     
@@ -79,7 +75,7 @@ function main() {
             null;
         }
     }
-    setTimeout(sub,400);
+    setTimeout(sub,200);
 }
 
 function sub() {
@@ -143,7 +139,7 @@ def main(Res,form,data,N):
         try:
             print(f"Submitting form no: {i+1}")
             driver.get(form)
-            driver.implicitly_wait(.5)
+            driver.implicitly_wait(.1)
             flag1,flag2=0,0
             try:
                 l = driver.find_elements(By.XPATH, '*//input[@type="text"]')
@@ -204,17 +200,16 @@ def main(Res,form,data,N):
                         pass
                     
             driver.execute_script(ext_js)
-            time.sleep(.1)
             #// Before you try to switch to the so given alert, it needs to be present.
             try:
-                time.sleep(.50)
+                time.sleep(.25)
                 alert = Alert(driver)
                 alert.accept()
             except:
                 pass
             N-=1
             if(N==0):
-                time.sleep(2)
+                time.sleep(1)
                 driver.quit()
         except:
             time.sleep(.2)
@@ -243,6 +238,7 @@ def about():
 @app.route('/fill', methods=['POST'])
 def fill():
     Data = request.get_json()
+    print(Data)
     Res=Data.get("Request_NO")
     form=Data.get("Form")
     data=Data.get("Form_data")
